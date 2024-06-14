@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RandomWalk {
-    public static void randomWalk(List<Node> nodes){
+    public static String randomWalk(List<Node> nodes){
         int k=0;
         int randomKey=(int)(Math.random()*(nodes.size()));//生成一个0到nodes.size()-1的随机数
         List<List<Integer>> roads=new ArrayList<>();//存储已经走过的边的两个顶点
@@ -38,6 +38,6 @@ public class RandomWalk {
             idsLength=nodes.get(a).getIds().size();
             k++;
         }
-        System.out.println(s);
+        return s;
     }
 }
