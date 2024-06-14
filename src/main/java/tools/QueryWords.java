@@ -12,6 +12,12 @@ public class QueryWords {
     private static int[][] shortPath=new int[MAXN][MAXN];//记录顶点间的最小路径值
     //查询桥接词
     public static String queryBridgeWords(List<Node> nodes,String word1, String word2){
+        if(nodes==null){
+            return "有向图不存在!";
+        }
+        if(word1.equals(word2)){
+            return "输入了重复的查询词!";
+        }
         String res="";
         List<String> list = query(nodes, word1, word2);
         if(list.get(2)=="0"){

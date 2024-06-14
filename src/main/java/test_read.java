@@ -3,6 +3,8 @@ import org.testng.annotations.Test;
 import pojo.Node;
 import tools.*;
 
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -128,6 +130,24 @@ public class test_read {
         System.out.println(a);
         int b=(int)(Math.random()*50);
         System.out.println(b);
+    }
+    @Test
+    public void test(){
+
+        FileSystemView fsv = FileSystemView.getFileSystemView();
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(fsv.getHomeDirectory());
+        fileChooser.setDialogTitle("请选择要上传的文件...");
+        fileChooser.setApproveButtonText("确定");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int result = fileChooser.showOpenDialog(null);
+
+        if (JFileChooser.APPROVE_OPTION == result) {
+            String path=fileChooser.getSelectedFile().getPath();
+            System.out.println("path: "+path);
+        }
     }
 }
 

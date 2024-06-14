@@ -1,8 +1,7 @@
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     private static int maxInt=1000;
@@ -404,30 +403,59 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         System.out.println("==================showDirectedGraph()==================");
-        String filePath="E:\\课程学习\\9_软件工程\\lab01\\src\\main\\resources\\a.txt";
+
+        FileSystemView fsv = FileSystemView.getFileSystemView();
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(fsv.getHomeDirectory());
+        fileChooser.setDialogTitle("请选择要上传的文件...");
+        fileChooser.setApproveButtonText("确定");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int result = fileChooser.showOpenDialog(null);
+        String filePath = null;
+        if (JFileChooser.APPROVE_OPTION == result) {
+            String path=fileChooser.getSelectedFile().getPath();
+            filePath=path;
+        }
+//        String filePath="E:\\课程学习\\9_软件工程\\lab01\\src\\main\\resources\\a.txt";
         List<Node> nodes = showDirectedGraph(filePath);
         System.out.println("文件已保存!");
         System.out.println("========================================================");
         System.out.println(" ");
 
         System.out.println("===================queryBridgeWords()===================");
-        String word1="people";
-        String word2="stand";
+        Scanner sc=new Scanner(System.in);
+        System.out.println("输入word1");
+        String word1=sc.next();
+        System.out.println("输入word2");
+        String word2=sc.next();
+//        String word1="people";
+//        String word2="stand";
         String queryBridgeWords = queryBridgeWords(nodes, word1, word2);
         System.out.println(queryBridgeWords);
         System.out.println("========================================================");
         System.out.println(" ");
 
         System.out.println("===================generateNewText()===================");
-        String s="If someone you their life,they will room for you.";
+        System.out.println("输入文本");
+        String s=sc.nextLine();
+        if (sc.hasNextLine()){
+            s = sc.nextLine();
+        }
+//        String s="If someone you their life,they will room for you.";
         String res= generateNewText(s,nodes);
         System.out.println(res);
         System.out.println("========================================================");
         System.out.println(" ");
 
         System.out.println("===================calcShortestPath()===================");
-        String word11="life";
-        String word22="friends";
+        System.out.println("输入word1");
+        String word11=sc.next();
+        System.out.println("输入word2");
+        String word22=sc.next();
+//        String word11="life";
+//        String word22="friends";
         calcShortestPath(nodes,word11,word22);
         System.out.println("========================================================");
         System.out.println(" ");
@@ -435,5 +463,6 @@ public class Main {
         System.out.println("======================randomWalk()======================");
         randomWalk(nodes);
         System.out.println("========================================================");
+        sc.close();
     }
 }
